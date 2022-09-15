@@ -1,2 +1,3 @@
 target/
+src/main/resources/employees_db.properties
 employees_db.properties

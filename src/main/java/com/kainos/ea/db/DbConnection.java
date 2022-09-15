@@ -7,7 +7,7 @@ import java.util.Properties;
 
 public class DbConnection {
     private static Connection myConnection;
-    static Connection getConnection() {
+    public static Connection getConnection() {
 
         String user;
         String password;
@@ -16,7 +16,7 @@ public class DbConnection {
         if (myConnection != null)
             return myConnection;
 
-        try(FileInputStream propsStream = new FileInputStream("employeesdb.properties")) {
+        try(FileInputStream propsStream = new FileInputStream("src/main/resources/employeesdb.properties")) {
 
             Properties props = new Properties();
             props.load(propsStream);
