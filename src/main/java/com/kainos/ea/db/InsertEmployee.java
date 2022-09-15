@@ -13,11 +13,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.kainos.ea.db.DbConnection.getConnection;
+import static com.kainos.ea.trueApplication.getConnection;
+
 
 public class InsertEmployee {
 
-    public static List<Employee> insertEmployees(List<Employee> employeesToAdd) {
+    public static List<Employee> insertEmployees(List<Employee> employeesToAdd) throws SQLException {
         List<Employee> bigEmps = new ArrayList<> ();
         ResultSet rs = null;
 
@@ -40,21 +41,12 @@ public class InsertEmployee {
         }
         values += ";";
 
-        try (
-                Connection myConnection = getConnection();
-                Statement st = (myConnection == null) ? null : myConnection.createStatement()) {
+        Connection con = getConnection();
+        Statement st = con.createStatement();
 
-            if (myConnection == null)
-                throw new SQLException ("Database connection null");
+        st.executeUpdate("insert into Employee(fname,lname,postcode,address,nin,bankAccount, startingSalary, isManager, department)" +
+                " values " + values);
 
-            st.executeUpdate("insert into Employee(fname,lname,postcode,address,nin,bankAccount, startingSalary, isManager, department)" +
-                    " values " + values);
-
-        } catch (SQLException ex) {
-
-            System.out.println(ex.getMessage());
-
-        }
 
         return bigEmps;
 

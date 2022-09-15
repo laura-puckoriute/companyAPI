@@ -6,6 +6,7 @@ import io.swagger.annotations.Api;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.sql.SQLException;
 import java.util.List;
 
 @Path("/api")
@@ -15,7 +16,7 @@ public class WebService {
     @GET
     @Path("/getEmployees")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Employee> getEmployees() {
+    public List<Employee> getEmployees() throws SQLException {
 
         List<Employee> emps = GetEmployee.getEmployees();
         return emps;
@@ -25,7 +26,7 @@ public class WebService {
     @POST
     @Path("/addEmployees")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void getEmployees(List<Employee> employees) {
+    public void getEmployees(List<Employee> employees) throws SQLException {
 
         InsertEmployee.insertEmployees(employees);
 
